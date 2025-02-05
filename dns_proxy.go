@@ -9,7 +9,7 @@ import (
 	"fmt"
 )
 
-var yggnet *net.IPNet
+var ruvnet *net.IPNet
 
 type DNSProxy struct {
 	Cache          *Cache
@@ -109,8 +109,8 @@ func (proxy *DNSProxy) processAnswerArray(q []dns.RR) (answer []dns.RR) {
 					answer = append(answer, rr)
 				}
 			} else {
-				// if answer contains ygg address - return it
-				if yggnet.Contains(rr.AAAA) {
+				// if answer contains ruv address - return it
+				if ruvnet.Contains(rr.AAAA) {
 					answer = append(answer, rr)
 				}
 			}
@@ -216,7 +216,7 @@ func (proxy *DNSProxy) processTypeAAAA(dnsServer string, q *dns.Question, reques
 		}
 
 		// No static.
-		// Query AAAA address, may be it's already ygg?
+		// Query AAAA address, may be it's already ruv?
 
 		queryMsg := new(dns.Msg)
 		requestMsg.CopyTo(queryMsg)
@@ -232,7 +232,7 @@ func (proxy *DNSProxy) processTypeAAAA(dnsServer string, q *dns.Question, reques
 		for _, orr := range msg.Answer {
 			a, okA := orr.(*dns.AAAA)
 			if okA {
-				if yggnet.Contains(a.AAAA) {
+				if ruvnet.Contains(a.AAAA) {
 					answer = append(answer, orr)
 				}
 			}
@@ -414,5 +414,5 @@ func (proxy *DNSProxy) ReversePTR(ptr string) (ipv4 net.IP, err error) {
 }
 
 func init() {
-	_, yggnet, _ = net.ParseCIDR("200::/7")
+	_, ruvnet, _ = net.ParseCIDR("fa00::/7")
 }
