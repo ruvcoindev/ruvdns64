@@ -1,8 +1,8 @@
 # Listen address
-listen: "[303:c771:1561:ed81::1]:53"
+listen: "[fb01:4d05:21d7:372b::1]:53"
 
 # Local prefix for translations
-prefix: "300:dada:feda:f443:ff::"
+prefix: "fb00:4715:66fa:2bd:3032::"
 
 # A complete prohibition on the return of A records
 # Otherwise return A records with AAAA
