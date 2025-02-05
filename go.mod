@@ -1,4 +1,4 @@
-module yggdns64
+module ruvdns64
 
 go 1.18
 
